@@ -51,9 +51,10 @@ exports.editDepartments=async(req,res)=>{
     }
 }
 exports.getOneDepartments=async(req,res)=>{
-    const {id}=req.params
+    const {name}=req.params
+    console.log(name);
     try{
-        const result=await departments.findOne({_id:id})
+        const result=await departments.findOne({ name: { $regex: new RegExp(name, 'i') } })
         res.status(200).json(result)
     }catch (err) {
         // Code to handle the error
